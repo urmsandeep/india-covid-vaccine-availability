@@ -89,7 +89,7 @@ PinCode: 125033 | Center: Subcenter Fransi          | MinAge: 45 | Availability:
 PinCode: 125033 | Center: Subcenter Dhana Kalan     | MinAge: 45 | Availability: 87  | Vaccine: 
 ```
 
-(4) Pincode: 125033 Date: 04-05-2021
+(4) Pincode: 524002 Date: 04-05-2021
 
 > python cowin_vax_avail_check.py -p 524002 -d 04-05-2021
 
