@@ -17,7 +17,6 @@
 #    -p PINCODE   Pin Code
 #    -d VAX_DATE  Date for Vaccine Availability in dd-mm-yyyy format,
 #                 default=today's date
-#    -v VACCINE   Vaccine Type [CS=Covishield CX=Covaxin, default=any]
 #
 #  RESTRICTIONS:
 #     Filtering based on Vaccine Type (Covishield/Covaix) is not supported
@@ -42,14 +41,13 @@
 # Pre-requsites
 # Python 2.x or later
 #########################
-
-
 import requests
 import time
 import json
 import argparse
 from datetime import date
 
+# COWIN URL PATH
 cowin_appt_api = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?"
 url_cowin_vax_by_pin = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?"
 
