@@ -24,7 +24,7 @@ optional arguments:
 
 (1) Pincode: 560029 Date: 04-05-2021
 
-python cowin_vax_avail_check.py -p 560029 -d 04-05-2021
+> python cowin_vax_avail_check.py -p 560029 -d 04-05-2021
 
 ```
 ======================================================================================
@@ -38,8 +38,9 @@ PinCode: 560029 | Center: NIMHANS Hospitals         | MinAge: 45 | Availability:
 
 (2) Pincode: 560078 Date: 04-05-2021
 
-python cowin_vax_avail_check.py -p 560078 -d 04-05-2021
+> python cowin_vax_avail_check.py -p 560078 -d 04-05-2021
 
+```
 ======================================================================================
 Checking availability for Pincode=560078 Date=04-05-2021 Vaccine=Any
 ========================================================================================
@@ -48,12 +49,13 @@ PinCode: 560078 | Center: Manipal Clinic            | MinAge: 18 | Availability:
 
 ** No Avaliability at any Center **
 
-python cowin_vax_avail_check.py -p 560076 -d 04-05-2021
+```
 
 (3) Pincode: 125033 Date: 04-05-2021
 
-python cowin_vax_avail_check.py -p 125033 -d 04-05-2021
+> python cowin_vax_avail_check.py -p 125033 -d 04-05-2021
 
+```
 ======================================================================================
 Checking availability for Pincode=125033 Date=04-05-2021 Vaccine=Any
 ========================================================================================
@@ -85,12 +87,13 @@ PinCode: 125033 | Center: Subcenter Fransi          | MinAge: 45 | Availability:
 PinCode: 125033 | Center: Subcenter Fransi          | MinAge: 45 | Availability: 100 | Vaccine: 
 
 PinCode: 125033 | Center: Subcenter Dhana Kalan     | MinAge: 45 | Availability: 87  | Vaccine: 
-
+```
 
 (4) Pincode: 125033 Date: 04-05-2021
 
-python cowin_vax_avail_check.py -p 524002 -d 04-05-2021
+> python cowin_vax_avail_check.py -p 524002 -d 04-05-2021
 
+```
 ======================================================================================
 Checking availability for Pincode=524002 Date=04-05-2021 Vaccine=Any
 ========================================================================================
@@ -120,3 +123,5 @@ PinCode: 524002 | Center: NTR Nagar EUPHC CVC       | MinAge: 45 | Availability:
 PinCode: 524002 | Center: Koduru PHC CVC            | MinAge: 45 | Availability: 0   | Vaccine: 
 
 PinCode: 524002 | Center: Koduru PHC CVC            | MinAge: 45 | Availability: 0   | Vaccine: 
+
+```
