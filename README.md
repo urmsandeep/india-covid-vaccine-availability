@@ -26,13 +26,15 @@ optional arguments:
 
 python cowin_vax_avail_check.py -p 560029 -d 04-05-2021
 
-`======================================================================================
+```
+======================================================================================
 Checking availability for Pincode=560029 Date=04-05-2021 Vaccine=Any
 ========================================================================================
 
 PinCode: 560029 | Center: NIMHANS Hospitals         | MinAge: 45 | Availability: 0   | Vaccine: 
 
 ** No Avaliability at any Center **
+```
 
 (2) Pincode: 560078 Date: 04-05-2021
 
