@@ -24,18 +24,20 @@
 #     as this data is not accurate from Cowin source.
 #
 #  Revisions:
-#     ver 1.0, 01-May-2021, Sandeep R, initial version
+#     ver 1.0, 01-May-2021, Sandeep Rao, initial version
+#     ver 1.1, 03-May-2021, Sandeep Rao, update to reporting
 ###############################################################################
 #  Sample output
-#  python cowin_appt.py -p 560027 -d 03-05-2021 
 #
-# ============================================================================
-# Checking availability for Pincode=560027 Date=03-05-2021 Vaccine=Any
-# ==============================================================================
+#  python ./india_covid_vaccine_availability.py -p 560011 -d 04-05-2021
 #
-# PinCode:560027 Center:Shanthinagar UPHC BLOCK 1 Vaccine: MinAge:45 Availability:3
+#  ======================================================================================
+#  Checking availability for Pincode=560011 Date=04-05-2021 Vaccine=Any
+#  ========================================================================================
 #
-# PinCode:560027 Center:SHANTHI NAGAR UPHC C1 Vaccine: MinAge:45 Availability:1
+#  PinCode: 560011 | Center: APOLLO CRADLE HOSPITAL    | MinAge: 45 | Availability: 1   | Vaccine: COVISHIELD
+#
+#  PinCode: 560011 | Center: Jayanagara Dispensary COVAXIN | MinAge: 45 | Availability: 0   | Vaccine: COVAXIN
 ##########################
 # Pre-requsites
 # Python 2.x or later
@@ -51,17 +53,31 @@ from datetime import date
 cowin_appt_api = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByDistrict?"
 url_cowin_vax_by_pin = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?"
 
+##########################################################
+# Look for vaccination centers and availability status for
+# given Pincode and Date
+#########################################################
 def cowin_vax_availability_by_pincode (pincode, vax_date, vaccine, log):
     found=False
+ 
+    ##########################
+    # Create the request URL
+    ##########################
     req_url = url_cowin_vax_by_pin + "pincode=" + pincode + "&date=" + vax_date
     if (log):
         print(req_url)
+
+    ##########################
+    # Send request
+    ##########################
     res = requests.get(req_url)
     if (res.status_code != 200):
         print("Response: Not OK")
         return
-    
-    # parse json response
+     
+    ##########################
+    # Parse JSON Response
+    ##########################
     center_list = json.loads(res.text)
     for center in center_list['centers']:
         for session in center['sessions']:
@@ -76,9 +92,18 @@ def cowin_vax_availability_by_pincode (pincode, vax_date, vaccine, log):
                       (pincode, center['name'], session['min_age_limit'], 
                        session['available_capacity'], session['vaccine']))
 
+    ###############################################
+    # If we did not find even a single center with
+    # availability > 0, we declare.. 
+    ###############################################
     if (found == False):
         print("\n** No Avaliability at any Center **")
 
+
+
+################################################################
+# TBD: Iternate over pincode "range" to look for vaccination centers
+################################################################
 def cowin_vax_availability_iterate_pincode (pincode, vax_date, vaccine, log):
     pin = int(pincode)
     end_pin = pin + 1
@@ -86,6 +111,13 @@ def cowin_vax_availability_iterate_pincode (pincode, vax_date, vaccine, log):
         cowin_vax_availability_by_pincode(str(pin), vax_date, vaccine, log)
         pin += 1
 
+
+
+################################################################
+# TBD: Add option to look up on vaccine type.
+# At the moment COWIN data does not accurately provide the type
+# of vaccine available at a center.  
+################################################################
 def vaccine_name (vaccine, arg):
     if (arg == True):
         switcher = {
@@ -94,13 +126,15 @@ def vaccine_name (vaccine, arg):
         }
         return switcher.get(vaccine, "Any")
     else:
-        print(vaccine)
         if not vaccine:
             return("COVISHIELD*")
         else:
             return(vaccine)
       
   
+################################################################
+# Setup things
+################################################################
 def initialize():
     parser = argparse.ArgumentParser(description="India Cowin Vax Availability Status")
     parser.add_argument('-p', action="store", dest="pincode", required=True,
@@ -119,16 +153,19 @@ def initialize():
     else:
         vax_date=args.vax_date
 
-    ##############################################
-    # We search for any Vaccine as the data on
-    # vaccine type is not accurate in CoWin
-    ##############################################
+    ##########################################################
+    # Here we just look for any Vaccine availability as the 
+    # data on vaccine type is not accurate in CoWin
+    ##########################################################
     vaccine = "Any"
     print("\n======================================================================================")
     print("Checking availability for Pincode=%s Date=%s Vaccine=%s" %
           (args.pincode, vax_date, vaccine))
     print("========================================================================================")
 
+    ###############################
+    # Begin look up process...
+    ###############################
     cowin_vax_availability_iterate_pincode (args.pincode, vax_date, vaccine, args.log)
 
 
