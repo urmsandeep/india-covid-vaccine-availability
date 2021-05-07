@@ -8,15 +8,25 @@
 #  Find available vaccination centers for given Pincode, Date, Vaccine type
 #
 #  USAGE:
-#  python cowin_appt.py [-h] -p PINCODE [-d VAX_DATE] [-v VACCINE]
+#  python ./india_covid_vaccine_availability.py -h
+#  usage: india_covid_vaccine_availability.py [-h] -p PINCODE [-d VAX_DATE]
+#                                             [-v VACCINE] [-a MINAGE] [-f] [-i]
+#                                             [-l]
 #
-#  India Cowin Vax Availability Status
-#
-#   optional arguments:
-#    -h, --help   show this help message and exit
-#    -p PINCODE   Pin Code
-#    -d VAX_DATE  Date for Vaccine Availability in dd-mm-yyyy format,
-#                 default=today's date
+# India Cowin Vax Availability Status
+# 
+# optional arguments:
+#  -h, --help      show this help message and exit
+#  -p PINCODE      Pin Code
+#  -d VAX_DATE     Date for Vaccine Availability in dd-mm-yyyy format,
+#                  default=today's date
+#  -v VACCINE      Vaccine Type [CX=Covaxin, default=COVISHIELD
+#  -a MINAGE       Vaccine Type [CX=Covaxin, default=COVISHIELD
+#  -f              Iterate to around 125 pin codes. Uses specified pincode as
+#                  starting code
+#  -i, --iterate   Iterate to around 125 pin codes. Uses specified pincode as
+#                  starting code
+#  -l, --simulate  Enable debug logs
 #
 #  RESTRICTIONS:
 #     Filtering based on Vaccine Type (Covishield/Covaix) is not supported
@@ -26,7 +36,11 @@
 #     ver 1.0, 01-May-2021, Sandeep Rao, initial version
 #     ver 1.1, 03-May-2021, Sandeep Rao, update to reporting
 ###############################################################################
-#  Sample output
+#
+#
+#  Example output
+#
+#  (1) Find availability for Pincode 560011 date 04-05-2021
 #
 #  python ./india_covid_vaccine_availability.py -p 560011 -d 04-05-2021
 #
@@ -37,6 +51,38 @@
 #  PinCode: 560011 | Center: APOLLO CRADLE HOSPITAL    | MinAge: 45 | Availability: 1   | Vaccine: COVISHIELD
 #
 #  PinCode: 560011 | Center: Jayanagara Dispensary COVAXIN | MinAge: 45 | Availability: 0   | Vaccine: COVAXIN
+#
+#
+#  (2) Use -i Option iterate across 125 starting from PinCode 560001 for a given date
+# 
+# python ./india_covid_vaccine_availability.py -p 560001 -d 12-05-2021 -i   
+# 
+# ======================================================================================
+# Checking availability for Pincode=560001 Date=12-05-2021 Age=0+ Vaccine=Any
+# ========================================================================================
+#
+# PinCode: 560002 | Center: Vanivillas Hospital -C1   | MinAge: 45 | Availability: 36  | Vaccine: COVAXIN
+#
+# PinCode: 560002 | Center: VICTORIA                  | MinAge: 45 | Availability: 10  | Vaccine: COVISHIELD
+# 
+# PinCode: 560002 | Center: VICTORIA                  | MinAge: 45 | Availability: 24  | Vaccine: COVISHIELD
+# 
+# PinCode: 560002 Total available: 70
+# 
+# PinCode: 560003 | Center: K C Gen Hospital          | MinAge: 45 | Availability: 1   | Vaccine: COVISHIELD
+#
+# PinCode: 560003 | Center: P G Halli UPHC            | MinAge: 45 | Availability: 2   | Vaccine: COVISHIELD
+#
+# PinCode: 560003 | Center: P G Halli UPHC            | MinAge: 45 | Availability: 6   | Vaccine: COVISHIELD
+#
+# PinCode: 560003 | Center: P G Halli UPHC            | MinAge: 45 | Availability: 50  | Vaccine: COVISHIELD
+# 
+# PinCode: 560003 Total available: 59
+#
+# PinCode: 560010 | Center: Manjunathanagar UPHC      | MinAge: 45 | Availability: 3   | Vaccine: COVISHIELD
+#
+#  .. more ...
+
 ##########################
 # Pre-requsites
 # Python 2.x or later
